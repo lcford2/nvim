@@ -16,7 +16,3 @@ vim.keymap.set('n', '<leader>sc', builtin.spell_suggest, { desc = "[S]pell [C]he
 -- git
 vim.keymap.set('n', '<leader>fgc', builtin.git_commits, { desc = "[F]ind [G]it [C]ommits" })
 vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = "[F]ind [G]it [B]ranches" })
--- vim.keymap.set('n', '<leader>gs', builtin.git_status, {})
--- telescope projects
-vim.keymap.set('n', '<leader>fp', require('telescope').extensions.project.project,
-  { desc = "[F]ind [P]rojects" })

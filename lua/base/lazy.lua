@@ -63,7 +63,6 @@ lazy.setup({
       tag = '0.1.3',
       dependencies = { 'nvim-lua/plenary.nvim' }
     },
-    { 'nvim-telescope/telescope-project.nvim' },
     -- File explorer
     {
       'kyazdani42/nvim-tree.lua',
