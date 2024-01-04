@@ -102,6 +102,23 @@ lazy.setup({
     -- { 'wellle/context.vim' },
     -- indent blankline
     { 'lukas-reineke/indent-blankline.nvim', main = 'ibl',                  opts = {} },
+    -- keybinding help
+    { 
+      'folke/which-key.nvim',
+      event = "VeryLazy",
+      init = function ()
+        vim.o.timeout = true
+        vim.o.timeoutlen = 300
+      end,
+      opts = {
+        window = {
+          border = "single",
+        },
+        layout = {
+          align = "center"
+        },
+      }
+    },
 
     -- Git Tools
     { 'tpope/vim-fugitive' },
