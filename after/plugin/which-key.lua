@@ -56,6 +56,14 @@ local mappings = {
     p = { function () vim.lsp.buf.goto_prev() end, "Previous Problem" },
     h = { function () vim.lsp.buf.hover() end, "Function Help" },
   },
+  -- git configs
+  g = {
+    name = "Git",
+    s = { vim.cmd.Git, "Status" },
+    p = { "<cmd>Git push<cr>", "Push" },
+    P = { "<cmd>Git pull<cr>", "Pull" },
+    c = { "<cmd>Git checkout<cr>", "Checkout" },
+  },
   -- harpoon config
   h = {
     name = "Harpoon",
@@ -73,6 +81,7 @@ local mappings = {
     d = { vim.cmd.Ex, "Explorer" },
     t = { OpenTerminal, "Terminal" },
   },
+  -- window configs
   w = {
     name = "Window",
     W = { function() SetWindowWidthAsRatio(0.8) end, "Set window to 80% of total width" },
