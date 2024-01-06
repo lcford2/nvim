@@ -19,8 +19,6 @@ end
 
 local opts = {
   mode = "n", -- NORMAL mode
-  -- prefix: use "<leader>f" for example for mapping everything related to finding files
-  -- the prefix is prepended to every mapping part of `mappings`
   prefix = " ",
   buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
   silent = true, -- use `silent` when creating keymaps
@@ -100,7 +98,10 @@ local mappings = {
   o = {
     name = "Open",
     u = { vim.cmd.UndotreeToggle, "UndoTree" },
-    d = { vim.cmd.Ex, "Explorer" },
+    -- Use netrw
+    -- d = { vim.cmd.Ex, "Explorer" },
+    -- Use triptych
+    d = { "<cmd>Triptych<cr>" , "File Explore" },
     t = { OpenTerminal, "Terminal" },
   },
   -- window configs

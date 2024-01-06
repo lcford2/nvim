@@ -24,6 +24,7 @@
   "panda-vim": { "branch": "master", "commit": "375f7753e9a037f66261438cc883602cc898a8a8" },
   "plenary.nvim": { "branch": "master", "commit": "55d9fe89e33efd26f532ef20223e5f9430c8b0c0" },
   "telescope.nvim": { "branch": "master", "commit": "54930e1abfc94409e1bb9266e752ef8379008592" },
+  "triptych.nvim": { "branch": "main", "commit": "c01877334c95b60cc51e706df896bd06e23046ae" },
   "undotree": { "branch": "master", "commit": "36ff7abb6b60980338344982ad4cdf03f7961ecd" },
   "vim-doge": { "branch": "master", "commit": "aa449a31373526fe12e72dde4532c1d7abf6787a" },
   "vim-fugitive": { "branch": "master", "commit": "59659093581aad2afacedc81f009ed6a4bfad275" },

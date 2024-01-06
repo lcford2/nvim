@@ -67,10 +67,19 @@ lazy.setup({
       tag = '0.1.3',
       dependencies = { 'nvim-lua/plenary.nvim' }
     },
-    -- File explorer
+    -- File explorer (tree)
     {
       'kyazdani42/nvim-tree.lua',
       dependencies = { 'kyazdani42/nvim-web-devicons' },
+    },
+    -- File explorer (popup)
+    {
+      'simonmclean/triptych.nvim',
+      event = 'VeryLazy',
+      dependencies = {
+        'nvim-lua/plenary.nvim', -- required
+        'nvim-tree/nvim-web-devicons', -- optional
+      }
     },
 
     -- Editor tools
