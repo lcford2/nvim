@@ -57,7 +57,11 @@ lazy.setup({
     },
 
     -- File navigation
-    { 'theprimeagen/harpoon' },
+    {
+      'theprimeagen/harpoon',
+      branch = "harpoon2",
+      dependencies = { "nvim-lua/plenary.nvim" },
+    },
     {
       'nvim-telescope/telescope.nvim',
       tag = '0.1.3',

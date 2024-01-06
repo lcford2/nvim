@@ -1,3 +1,22 @@
+local harpoon = require("harpoon")
+-- harpoon telescope function
+local function toggle_telescope(harpoon_files)
+    local conf = require("telescope.config").values
+    local file_paths = {}
+    for _, item in ipairs(harpoon_files.items) do
+        table.insert(file_paths, item.value)
+    end
+
+    require("telescope.pickers").new({}, {
+        prompt_title = "Harpoon",
+        finder = require("telescope.finders").new_table({
+            results = file_paths,
+        }),
+        previewer = conf.file_previewer({}),
+        sorter = conf.generic_sorter({}),
+    }):find()
+end
+
 local opts = {
   mode = "n", -- NORMAL mode
   -- prefix: use "<leader>f" for example for mapping everything related to finding files
@@ -9,8 +28,6 @@ local opts = {
   nowait = false, -- use `nowait` when creating keymaps
   expr = false, -- use `expr` when creating keymaps
 }
-
-local harpoon = require("harpoon")
 
 local mappings = {
   -- telescope mappings
@@ -66,15 +83,18 @@ local mappings = {
     P = { "<cmd>Git pull<cr>", "Pull" },
     c = { "<cmd>Git checkout<cr>", "Checkout" },
   },
-  -- harpoon config
   h = {
     name = "Harpoon",
-    a = { function () harpoon.mark.add_file () end, "Add file" },
-    m = { function () harpoon.ui.toggle_quick_menu () end, "Menu" },
-    h = { function () harpoon.ui.nav_file(1) end, "File 1" },
-    j = { function () harpoon.ui.nav_file(2) end, "File 2" },
-    k = { function () harpoon.ui.nav_file(3) end, "File 3" },
-    l = { function () harpoon.ui.nav_file(4) end, "File 4" },
+    a = { function () harpoon:list():append() end, "Add file" },
+    m = { function () toggle_telescope(harpoon:list()) end, "Menu" },
+    -- m = { function() require("harpoon.ui"):toggle_quick_menu(require("harpoon"):list()) end, "Menu" },
+    J = { function () harpoon:list():next() end, "Next File" },
+    K = { function () harpoon:list():prev() end, "Previous File" },
+    h = { function () harpoon:list():select(1) end , "File 1" },
+    j = { function () harpoon:list():select(2) end , "File 2" },
+    k = { function () harpoon:list():select(3) end , "File 3" },
+    l = { function () harpoon:list():select(4) end , "File 4" },
+    e = { function () harpoon:list():clear() end, "Clear Marks" },
   },
   -- open configs
   o = {

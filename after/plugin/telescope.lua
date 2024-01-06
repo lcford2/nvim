@@ -1,5 +1,6 @@
 local builtin = require('telescope.builtin')
 pcall(require('telescope').load_extension, 'fzf')
+pcall(require('telescope').load_extension, 'harpoon')
 
 --  These mappings have been moved to the which key config
 -- -- file searching
