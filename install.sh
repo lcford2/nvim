@@ -3,7 +3,7 @@
 # ubuntu deps ninja-build gettext cmake unzip curl git gcc
 # macos xcode-select --install, brew, ninja, cmake, gettext, curl
 
-LATEST_RELEASE=v0.0.1
+LATEST_RELEASE=v0.0.3
 
 NVIM_MAJOR_TARGET=9
 NVIM_MINOR_TARGET=5
