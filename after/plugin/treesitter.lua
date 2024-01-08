@@ -37,3 +37,5 @@ nvim_treesitter.setup {
   },
   -- TODO: comeback and keep configuring treesitter
 }
+
+vim.treesitter.language.register("markdown", "telekasten")
