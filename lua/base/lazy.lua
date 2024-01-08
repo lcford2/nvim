@@ -149,10 +149,29 @@ lazy.setup({
     -- note taking
     {
       'renerocksai/telekasten.nvim',
-      dependencies = {'nvim-telescope/telescope.nvim'}
+      dependencies = {'nvim-telescope/telescope.nvim'},
+      event = "VeryLazy",
     },
     {
       'renerocksai/calendar-vim',
+      event = "VeryLazy",
+    },
+    {
+    "tadmccorkle/markdown.nvim",
+      event = "VeryLazy",
+      opts = {
+        -- configuration here or empty for defaults
+      },
+    },
+
+    -- math in buffer
+    {
+      'lcford2/vim-calc'
+    },
+
+    -- vim help
+    {
+      "antonk52/bad-practices.nvim",
     },
   },
 })
