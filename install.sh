@@ -17,7 +17,15 @@ if [ -z "${NVIM_PREFIX}" ]; then
   NVIM_PREFIX=/usr/local
 fi
 
+if command -v sudo &>/dev/null; then
+  SUDO_STR="sudo "
+  echo "Will use 'sudo' to install packages where needed."
+else
+  SUDO_STR=""
+fi
+
 INSTALL=1
+PROMPT=1
 UPGRADE=0
 
 usage () {
@@ -36,39 +44,28 @@ neovim_install_help() {
 }
 
 _install_deps_apt () {
+  echo "Installing Neovim Dependencies"
   # Use APT to install the build dependencies for neovim
-  if command -v sudo &>/dev/null; then
-    SUDO_STR="sudo "
-  else
-    SUDO_STR=""
-  fi
-
-  ${SUDO_STR}apt update && ${SUDO_STR}apt install -y \
+  ${SUDO_STR}apt update &>/dev/null && ${SUDO_STR}apt install -y \
     curl \
     git \
     python3-venv \
     python3-pip \
-    clang
+    clang &>/dev/null
 }
 
 _install_build_deps_apt () {
   # Use APT to install the build dependencies for neovim
-  if command -v sudo &>/dev/null; then
-    SUDO_STR="sudo "
-  else
-    SUDO_STR=""
-  fi
-
-  ${SUDO_STR}apt update && ${SUDO_STR}apt install -y \
+  ${SUDO_STR}apt update &>/dev/null && ${SUDO_STR}apt install -y \
     build-essential \
     cmake \
     gettext \
-    unzip
+    unzip &>/dev/null
 }
 
 _install_binary () {
   # Download and install prebuilt binaries
-  echo "INTALLING FROM BINARY"
+  echo "Installing from pre-compiled binary"
   # ensure an argument was passed
   if [ $# -lt 1 ]; then
     echo "Must provide binary name."
@@ -89,7 +86,7 @@ _install_binary () {
 }
 
 _install_source () {
-  echo "INTALLING FROM SOURCE"
+  echo "Building neovim from source" 
   # install build dependencies
   if ! command -v apt &>/dev/null; then
     echo "Cannot install neovim build deps using apt (apt not found)"
@@ -110,12 +107,13 @@ _install_source () {
 
 _install_node () {
   # install nodejs for lsps
+  echo "Installing Node to neovim LSPs"
   nvm_install_output=$(curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash)
   nvm_dir_cmd=$(echo "$nvm_install_output" | grep -oP "export NVM_DIR=\H*")
   eval "$nvm_dir_cmd"
   if [ -n "$NVM_DIR" ]; then
     source "$NVM_DIR/nvm.sh"
-    nvm install node
+    nvm install node >/dev/null 2>&1
   else
     echo "Could not install node with nvm."
   fi
@@ -124,7 +122,7 @@ _install_node () {
 install_nvim () {
   _install_deps_apt
   if [ "${OS}" == "Linux" ]; then
-    if [ "${ARCH}" != "amd64" ]; then
+    if [ "${ARCH}" != "x86_64" ]; then
       # Install neovim from source since no precompiled binaries exist
       _install_source
     else 
@@ -154,6 +152,10 @@ while test $# -gt 0; do
       echo "Upgrading neovim."
       UPGRADE=1
       ;;
+    --no-prompt)
+      echo "Not prompting during installation"
+      PROMPT=0
+      ;;
     -h|--help)
       usage
       exit 0
@@ -162,11 +164,21 @@ while test $# -gt 0; do
   shift
 done
 
+printf "\n==================================================\n"
 echo "Installing with configuration:"
 echo "Neovim Version: $VERSION"
 echo "ARCH: ${ARCH}"
 echo "OS: ${OS}"
 echo "NVIM_PREFIX: ${NVIM_PREFIX}"
+printf "==================================================\n\n"
+
+if [ "${PROMPT}" == 1 ]; then
+  read -rp "Continue? [y/N] " INPUT
+  if [ "${INPUT}" != "y" ] && [ "${INPUT}" != "Y" ]; then
+    echo "Exiting..."
+    exit 4
+  fi
+fi
 
 # If neovim is not found, download it
 if ! command -v nvim &> /dev/null; then
@@ -185,13 +197,22 @@ if [ -z "$XDG_CONFIG_HOME" ]; then
   XDG_CONFIG_HOME="${HOME}/.config"
 fi
 
-NVIM_DIR="${XDG_CONFIG_HOME}/nvim"
+NEOVIM_CONFIG_DIR="${XDG_CONFIG_HOME}/nvim"
 # backup old neovim settings
-if [ -d "${NVIM_DIR}" ]; then
-  mv "${NVIM_DIR}" "${NVIM_DIR}.bkp"
+if [ -d "${NEOVIM_CONFIG_DIR}" ]; then
+  mv "${NEOVIM_CONFIG_DIR}" "${NEOVIM_CONFIG_DIR}.bkp"
 fi
 
 # get neovim configuration
+echo "Setting up custom neovim config at ${NEOVIM_CONFIG_DIR}"
 curl -sOL "https://github.com/lcford2/nvim/archive/refs/tags/${LATEST_RELEASE}.tar.gz"
 tar xf "${LATEST_RELEASE}.tar.gz"
-mv "nvim-${LATEST_RELEASE//v}" "${NVIM_DIR}"
+mv "nvim-${LATEST_RELEASE//v}" "${NEOVIM_CONFIG_DIR}"
+rm "${LATEST_RELEASE}.tar.gz"
+
+# echo out instruction message for user
+printf "\n==================================================\n"
+echo "Installation Complete!!"
+echo "Close and reopen your terminal, then run 'nvim'."
+echo "Your plugins will install, and you may need to close and reopen neovim afterwards."
+printf "==================================================\n\n"
