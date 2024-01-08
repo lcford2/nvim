@@ -122,6 +122,9 @@ local mappings = {
     c = { "<cmd>Telekasten show_calendar<cr>", "Calendar" },
     l = { "<cmd>Telekasten insert_link<cr>", "Insert Link" },
     L = { "<cmd>Telekasten show_backlinks<cr>", "Show Links to Note" },
+    T = { "<cmd>Telekasten toggle_todo<cr>", "Toggle Todo" },
+    w = { "<cmd>Telekasten find_weekly_notes<cr>", "Find Weekly Note" },
+    W = { "<cmd>Telekasten goto_thisweek<cr>", "Goto This Week's Note" },
   },
 }
 
