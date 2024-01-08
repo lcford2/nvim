@@ -55,6 +55,15 @@ autocmd('Filetype', {
   command = 'setlocal shiftwidth=4 tabstop=4 softtabstop=4'
 })
 
+autocmd('BufEnter', {
+  desc = "Set markdown options for telekasten",
+  callback = function (opts)
+    if vim.bo[opts.buf].filetype == "telekasten" then
+      vim.cmd ':setlocal shiftwidth=4 tabstop=4 softtabstop=4'
+    end
+  end,
+})
+
 -- Enter insert mode when switching to terminal
 autocmd('TermOpen', {
   command = 'setlocal listchars= nonumber norelativenumber nocursorline',

@@ -110,6 +110,19 @@ local mappings = {
     W = { function() SetWindowWidthAsRatio(0.8) end, "Set window to 80% of total width" },
     V = { function() SetWindowHeightAsRatio(0.8) end, "Set window to 80% of total height" },
   },
+  -- neorg for notes
+  n = {
+    name = "Notes",
+    n = { "<cmd>Telekasten new_note<cr>", "New Note" },
+    f = { "<cmd>Telekasten find_notes<cr>", "Find Note" },
+    t = { "<cmd>Telekasten show_tags<cr>", "Show Tags" },
+    s = { "<cmd>Telekasten search_notes<cr>", "Search Notes" },
+    d = { "<cmd>Telekasten find_daily_notes<cr>", "Find Daily Note" },
+    D = { "<cmd>Telekasten goto_today<cr>", "Goto Today's Note" },
+    c = { "<cmd>Telekasten show_calendar<cr>", "Calendar" },
+    l = { "<cmd>Telekasten insert_link<cr>", "Insert Link" },
+    L = { "<cmd>Telekasten show_backlinks<cr>", "Show Links to Note" },
+  },
 }
 
 local wk = require("which-key")

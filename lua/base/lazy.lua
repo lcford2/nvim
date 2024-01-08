@@ -107,12 +107,8 @@ lazy.setup({
         'lewis6991/gitsigns.nvim',
       },
     },
-    -- pydoctstring
-    -- { 'heavenshell/vim-pydocstring' },
     -- doge documentation generator
     { 'kkoomen/vim-doge',                    build = ':call doge#install()' },
-    -- vim context
-    -- { 'wellle/context.vim' },
     -- indent blankline
     { 'lukas-reineke/indent-blankline.nvim', main = 'ibl',                  opts = {} },
     -- keybinding help
@@ -149,5 +145,14 @@ lazy.setup({
     { 'hrsh7th/cmp-nvim-lsp' },
     { 'hrsh7th/nvim-cmp' },
     { 'L3MON4D3/LuaSnip' },
+
+    -- note taking
+    {
+      'renerocksai/telekasten.nvim',
+      dependencies = {'nvim-telescope/telescope.nvim'}
+    },
+    {
+      'renerocksai/calendar-vim',
+    },
   },
 })
