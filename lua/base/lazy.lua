@@ -166,7 +166,7 @@ lazy.setup({
 
     -- math in buffer
     {
-      'lcford2/vim-calc'
+      "lcford2/calc.nvim",
     },
 
     -- vim help
