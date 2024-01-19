@@ -167,6 +167,8 @@ lazy.setup({
     -- math in buffer
     {
       "lcford2/calc.nvim",
+      -- name = "calc.nvim",
+      -- dir = "~/projects/calc.nvim"
     },
 
     -- vim help
