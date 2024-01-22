@@ -1,1 +1,5 @@
-require("triptych").setup()
+require("triptych").setup({
+  options = {
+    show_hidden = true,
+  },
+})
