@@ -54,6 +54,11 @@ autocmd('Filetype', {
   command = 'setlocal shiftwidth=4 tabstop=4 softtabstop=4'
 })
 
+autocmd('Filetype', {
+  pattern = { "cpp", "hpp", "c", "h" },
+  command = "lua vim.api.nvim_buf_set_option(0, 'commentstring', '// %s')"
+})
+
 autocmd('BufEnter', {
   desc = "Set markdown options for telekasten",
   callback = function (opts)
