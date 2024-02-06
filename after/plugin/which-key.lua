@@ -39,13 +39,18 @@ local mappings = {
     h =  { "<cmd>Telescope help_tags<cr>", "Find Help Tags" },
     c =  { "<cmd>Telescope colorsheme<cr>", "Find Colorscheme" },
     d =  { "<cmd>Telescope diagnostics<cr>", "Find Diagnostics" },
-    b =  { "<cmd>Telescope buffers<cr>", "Find Buffers" },
     g = {
       name = "Git",
       f =  { "<cmd>Telescope git_files<cr>", "Files" },
       c = { "<cmd>Telescope git_commits<cr>", "Commits" },
       b = { "<cmd>Telescope git_branches<cr>", "Branches" },
     }
+  },
+  b = {
+    name = "Buffers",
+    l = { "<cmd>bprev<cr>", "Last Buffer" },
+    n = { "<cmd>bnext<cr>", "Last Buffer" },
+    b = { "<cmd>Telescope buffers<cr>", "Find Buffers" },
   },
   -- go to config
   g = {
