@@ -22,6 +22,9 @@ vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank to sys clipboard" })
 -- open a terminal below
 function OpenTerminal()
   local shell = os.getenv("SHELL")
+  if shell == nil then
+    shell = "/bin/bash"
+  end
   local term_open_cmd = "botright split term://" .. shell
   vim.cmd(term_open_cmd)
   vim.cmd("resize 20")

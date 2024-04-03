@@ -21,8 +21,14 @@ local lsp_zero = require('lsp-zero')
 require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = {
-    'rust_analyzer', 'bashls', 'clangd', 'cmake', 'dockerls',
-    'docker_compose_language_service', 'pyright', 'lua_ls'
+    'rust_analyzer',
+    'bashls',
+    'clangd',
+    'cmake',
+    'dockerls',
+    'docker_compose_language_service',
+    'pyright',
+    'lua_ls',
   },
   handlers = {
     lsp_zero.default_setup,

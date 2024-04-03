@@ -171,9 +171,15 @@ lazy.setup({
       -- dir = "~/projects/calc.nvim"
     },
 
+    -- math in buffer (pretty)
+    {
+      "jbyuki/nabla.nvim"
+    },
+
     -- vim help
     {
       "antonk52/bad-practices.nvim",
     },
+    
   },
 })
