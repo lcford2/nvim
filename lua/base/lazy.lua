@@ -65,7 +65,17 @@ lazy.setup({
     {
       'nvim-telescope/telescope.nvim',
       tag = '0.1.3',
-      dependencies = { 'nvim-lua/plenary.nvim' }
+      dependencies = {
+        'nvim-lua/plenary.nvim' ,
+        'Snikimonkd/telescope-git-conflicts.nvim',
+      }
+    },
+    {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+    },
+    {
+      'TC72/telescope-tele-tabby.nvim',
     },
     -- File explorer (tree)
     {
@@ -80,6 +90,9 @@ lazy.setup({
         'nvim-lua/plenary.nvim', -- required
         'nvim-tree/nvim-web-devicons', -- optional
       }
+    },
+    {
+      'jvgrootveld/telescope-zoxide'
     },
 
     -- Editor tools
@@ -180,6 +193,10 @@ lazy.setup({
     {
       "antonk52/bad-practices.nvim",
     },
-    
+    {
+      "m4xshen/hardtime.nvim",
+      dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+      opts = {}
+    },
   },
 })
