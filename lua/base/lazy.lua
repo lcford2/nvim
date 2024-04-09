@@ -120,6 +120,8 @@ lazy.setup({
         'lewis6991/gitsigns.nvim',
       },
     },
+    -- terminal manager
+    { 'Bhanukamax/tman.nvim' },
     -- doge documentation generator
     { 'kkoomen/vim-doge',                    build = ':call doge#install()' },
     -- indent blankline
@@ -193,10 +195,10 @@ lazy.setup({
     {
       "antonk52/bad-practices.nvim",
     },
-    {
-      "m4xshen/hardtime.nvim",
-      dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-      opts = {}
-    },
+    -- {
+    --   "m4xshen/hardtime.nvim",
+    --   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+    --   opts = {}
+    -- },
   },
 })

@@ -17,6 +17,8 @@ local function toggle_telescope(harpoon_files)
     }):find()
 end
 
+local tman = require("tman")
+
 local opts = {
   mode = "n", -- NORMAL mode
   prefix = " ",
@@ -107,7 +109,16 @@ local mappings = {
     -- d = { vim.cmd.Ex, "Explorer" },
     -- Use triptych
     d = { "<cmd>Triptych<cr>" , "File Explore" },
-    t = { OpenTerminal, "Terminal" },
+    -- t = { OpenTerminal, "Terminal" },
+    t = { function () tman.toggleLast({insert = true}) end, "Terminal" },
+    r = { tman.toggleRight, "Terminal Right" },
+  },
+  t = {
+    name = "Terminal",
+    t = { function () tman.toggleLast({insert = true}) end, "Terminal" },
+    r = { tman.toggleRight, "Terminal Right" },
+    c = { ":TmanCmd<CR>", "Send Terminal Command"},
+    l = { ":TmanCmdLast<CR>", "Send Last Terminal Command"},
   },
   -- window configs
   w = {

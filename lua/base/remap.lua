@@ -19,6 +19,9 @@ vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "No overwrite paste" })
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to sys clipboard" })
 vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank to sys clipboard" })
 
+-- exit terminal mode
+vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", {})
+
 -- open a terminal below
 function OpenTerminal()
   local shell = os.getenv("SHELL")
