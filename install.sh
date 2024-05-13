@@ -77,11 +77,11 @@ _install_binary () {
   curl -sOL "$URL"
   # extract and install neovim components
   tar xf "${binary_name}.tar.gz"
-  mkdir -p "${NVIM_PREFIX}/{bin,share,lib,man}"
-  cp -r "${binary_name}/bin/nvim" "${NVIM_PREFIX}/bin/nvim"
-  cp -r "${binary_name}/share/"* "${NVIM_PREFIX}/share"
-  cp -r "${binary_name}/lib/"* "${NVIM_PREFIX}/lib"
-  cp -r "${binary_name}/man/"* "${NVIM_PREFIX}/man"
+  sudo mkdir -p "${NVIM_PREFIX}/{bin,share,lib,man}"
+  sudo cp -r "${binary_name}/bin/nvim" "${NVIM_PREFIX}/bin/nvim"
+  sudo cp -r "${binary_name}/share/"* "${NVIM_PREFIX}/share"
+  sudo cp -r "${binary_name}/lib/"* "${NVIM_PREFIX}/lib"
+  sudo cp -r "${binary_name}/man/"* "${NVIM_PREFIX}/man"
   rm -rf "./${binary_name}" "./${binary_name}.tar.gz"
 }
 
