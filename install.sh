@@ -5,8 +5,8 @@
 
 LATEST_RELEASE=v0.0.6
 
-NVIM_MAJOR_TARGET=9
-NVIM_MINOR_TARGET=5
+NVIM_MAJOR_TARGET=10
+NVIM_MINOR_TARGET=0
 VERSION="v0.${NVIM_MAJOR_TARGET}.${NVIM_MINOR_TARGET}"
 BASE_URL="https://github.com/neovim/neovim/releases/download/${VERSION}"
 
@@ -77,11 +77,10 @@ _install_binary () {
   curl -sOL "$URL"
   # extract and install neovim components
   tar xf "${binary_name}.tar.gz"
-  sudo mkdir -p "${NVIM_PREFIX}/{bin,share,lib,man}"
+  sudo mkdir -p "${NVIM_PREFIX}/{bin,share,lib}"
   sudo cp -r "${binary_name}/bin/nvim" "${NVIM_PREFIX}/bin/nvim"
   sudo cp -r "${binary_name}/share/"* "${NVIM_PREFIX}/share"
   sudo cp -r "${binary_name}/lib/"* "${NVIM_PREFIX}/lib"
-  sudo cp -r "${binary_name}/man/"* "${NVIM_PREFIX}/man"
   rm -rf "./${binary_name}" "./${binary_name}.tar.gz"
 }
 
