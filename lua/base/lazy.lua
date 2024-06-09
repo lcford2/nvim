@@ -77,6 +77,9 @@ lazy.setup({
     {
       'TC72/telescope-tele-tabby.nvim',
     },
+    {
+      'hrsh7th/cmp-path'
+    },
     -- File explorer (tree)
     {
       'kyazdani42/nvim-tree.lua',

@@ -105,11 +105,8 @@ local mappings = {
   o = {
     name = "Open",
     u = { vim.cmd.UndotreeToggle, "UndoTree" },
-    -- Use netrw
-    -- d = { vim.cmd.Ex, "Explorer" },
     -- Use triptych
-    d = { "<cmd>Triptych<cr>" , "File Explore" },
-    -- t = { OpenTerminal, "Terminal" },
+    d = { "<cmd>Triptych<cr>" , "File Explorer" },
     t = { function () tman.toggleLast({insert = true}) end, "Terminal" },
     r = { tman.toggleRight, "Terminal Right" },
   },
