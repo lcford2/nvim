@@ -97,6 +97,12 @@ lazy.setup({
     {
       'jvgrootveld/telescope-zoxide'
     },
+    {
+      'stevearc/oil.nvim',
+      opts = {},
+      -- Optional dependencies
+      dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
 
     -- Editor tools
     { 'mbbill/undotree' },
