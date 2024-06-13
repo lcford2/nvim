@@ -34,27 +34,11 @@ function OpenTerminal()
 end
 
 function GetVimWidth()
-  -- get the total width of the nvim window
-  local info = vim.fn.getwininfo()
-  local width = 0
-  -- sum over all nvim windows to get the total width
-  for window in pairs(info) do
-      local window_info = info[window]
-      width = width + window_info.width
-  end
-  return width
+  return vim.o.columns
 end
 
 function GetVimHeight()
-  -- get the total height of the nvim window
-  local info = vim.fn.getwininfo()
-  local height = 0
-  -- sum over all nvim windows to get the total height
-  for window in pairs(info) do
-      local window_info = info[window]
-      height = height + window_info.height
-  end
-  return height
+  return vim.o.lines
 end
 
 function SetWindowWidthAsRatio(ratio)
@@ -71,3 +55,21 @@ function SetWindowHeightAsRatio(ratio)
   vim.cmd("resize " .. tostring(new_height))
 end
 
+function ZoomWindow()
+   local total_width = GetVimWidth()
+   local total_height = GetVimHeight()
+
+   -- Calculate new width and height for 80% of the available space
+   local new_width = math.floor(total_width * 0.8)
+   local new_height = math.floor(total_height * 0.8)
+
+   if #vim.api.nvim_tabpage_list_wins(0) == 1 then
+     -- Only one window, make it full screen
+     vim.cmd("resize " .. total_height)
+     vim.cmd("vertical resize " .. total_width)
+   else
+     -- Resize to 80%
+     vim.cmd("resize " .. new_height)
+     vim.cmd("vertical resize " .. new_width)
+   end
+end

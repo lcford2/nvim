@@ -128,6 +128,7 @@ local mappings = {
     name = "Window",
     W = { function() SetWindowWidthAsRatio(0.8) end, "Set window to 80% of total width" },
     V = { function() SetWindowHeightAsRatio(0.8) end, "Set window to 80% of total height" },
+    z = { function() ZoomWindow() end, "Zoom current window." },
   },
   -- neorg for notes
   n = {
