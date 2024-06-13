@@ -111,6 +111,11 @@ local mappings = {
     t = { function () tman.toggleLast({insert = true}) end, "Terminal" },
     r = { tman.toggleRight, "Terminal Right" },
   },
+  s = {
+    name = "Sidebar",
+    l = { "<cmd>NvimTreeToggle<cr>", "Left (nvim-tree)" },
+    r = { "<cmd>Outline<cr>", "Right (outline)" }
+  },
   t = {
     name = "Terminal",
     t = { function () tman.toggleLast({insert = true}) end, "Terminal" },
