@@ -40,6 +40,7 @@ lazy.setup({
     {
       'rafi/awesome-vim-colorschemes',
     },
+    -- everforest (current)
     {
       'sainnhe/everforest',
       lazy = false,    -- make sure we load this during startup if it is your main colorscheme
@@ -109,6 +110,7 @@ lazy.setup({
     { 'terrortylor/nvim-comment' },
     { 'nvim-treesitter/nvim-treesitter',      build = ':TSUpdate' },
     { 'nvim-treesitter/nvim-treesitter-context' },
+    { 'hedyhli/outline.nvim' },
     -- Git labels
     {
       'lewis6991/gitsigns.nvim',
