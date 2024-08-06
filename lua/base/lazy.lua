@@ -50,7 +50,7 @@ lazy.setup({
       'navarasu/onedark.nvim',
     },
     -- Icons
-    { 'kyazdani42/nvim-web-devicons', lazy = true },
+    { 'kyazdani42/nvim-web-devicons',           lazy = true },
     -- Dashboard (start screen)
     {
       'goolord/alpha-nvim',
@@ -67,13 +67,14 @@ lazy.setup({
       'nvim-telescope/telescope.nvim',
       tag = '0.1.3',
       dependencies = {
-        'nvim-lua/plenary.nvim' ,
+        'nvim-lua/plenary.nvim',
         'Snikimonkd/telescope-git-conflicts.nvim',
       }
     },
     {
       'nvim-telescope/telescope-fzf-native.nvim',
-      build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+      build =
+      'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
     },
     {
       'TC72/telescope-tele-tabby.nvim',
@@ -91,7 +92,7 @@ lazy.setup({
       'simonmclean/triptych.nvim',
       event = 'VeryLazy',
       dependencies = {
-        'nvim-lua/plenary.nvim', -- required
+        'nvim-lua/plenary.nvim',       -- required
         'nvim-tree/nvim-web-devicons', -- optional
       }
     },
@@ -108,7 +109,7 @@ lazy.setup({
     -- Editor tools
     { 'mbbill/undotree' },
     { 'terrortylor/nvim-comment' },
-    { 'nvim-treesitter/nvim-treesitter',      build = ':TSUpdate' },
+    { 'nvim-treesitter/nvim-treesitter',        build = ':TSUpdate' },
     { 'nvim-treesitter/nvim-treesitter-context' },
     { 'hedyhli/outline.nvim' },
     -- Git labels
@@ -137,11 +138,13 @@ lazy.setup({
     { 'kkoomen/vim-doge',                    build = ':call doge#install()' },
     -- indent blankline
     { 'lukas-reineke/indent-blankline.nvim', main = 'ibl',                  opts = {} },
+    -- highlight todo notes etc
+    { 'folke/todo-comments.nvim',            event = "VimEnter",            dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
     -- keybinding help
-    { 
+    {
       'folke/which-key.nvim',
       event = "VeryLazy",
-      init = function ()
+      init = function()
         vim.o.timeout = true
         vim.o.timeoutlen = 300
       end,
@@ -164,9 +167,10 @@ lazy.setup({
     { 'christoomey/vim-tmux-navigator' },
 
     -- LSP Zero Setup
-    { 'VonHeikemen/lsp-zero.nvim',           branch = 'v3.x' },
+    { 'VonHeikemen/lsp-zero.nvim',                branch = 'v3.x' },
     { 'williamboman/mason.nvim' },
     { 'williamboman/mason-lspconfig.nvim' },
+    { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
     { 'neovim/nvim-lspconfig' },
     { 'hrsh7th/cmp-nvim-lsp' },
     { 'hrsh7th/nvim-cmp' },
@@ -175,7 +179,7 @@ lazy.setup({
     -- note taking
     {
       'renerocksai/telekasten.nvim',
-      dependencies = {'nvim-telescope/telescope.nvim'},
+      dependencies = { 'nvim-telescope/telescope.nvim' },
       event = "VeryLazy",
     },
     {
@@ -183,7 +187,7 @@ lazy.setup({
       event = "VeryLazy",
     },
     {
-    "tadmccorkle/markdown.nvim",
+      "tadmccorkle/markdown.nvim",
       event = "VeryLazy",
       opts = {
         -- configuration here or empty for defaults

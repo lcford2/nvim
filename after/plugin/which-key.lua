@@ -57,10 +57,10 @@ local mappings = {
   -- go to config
   g = {
     name = "GoTo",
-    d = { vim.lsp.buf.definition , "Definition" },
-    D = { vim.lsp.buf.declaration , "Delcaration" },
-    i = { vim.lsp.buf.implementation , "Implementation" },
-    t = { vim.lsp.buf.type_definition , "Type Definition" },
+    d = { vim.lsp.buf.implementation, "Definition" },
+    D = { vim.lsp.buf.declaration, "Delcaration" },
+    i = { vim.lsp.buf.implementation, "Implementation" },
+    t = { vim.lsp.buf.type_definition, "Type Definition" },
   },
   -- lsp config
   l = {
