@@ -11,7 +11,7 @@ require('mason-lspconfig').setup({
     'docker_compose_language_service',
     'pyright',
     'lua_ls',
-    'ruff_lsp',
+    'ruff',
   },
   handlers = {
     lsp_zero.default_setup,

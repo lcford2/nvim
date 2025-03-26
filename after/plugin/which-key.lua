@@ -29,126 +29,114 @@ local opts = {
   expr = false,   -- use `expr` when creating keymaps
 }
 
+-- Using the format that matches the which-key suggested spec
 local mappings = {
-  -- telescope mappings
-  f = {
-    name = "Find",
-    f = { "<cmd>Telescope find_files<cr>", "Find File" },
-    t = { "<cmd>Telescope live_grep<cr>", "Grep" },
-    T = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Fuzzy Find in File" },
-    r = { "<cmd>Telescope oldfiles<cr>", "Recent Files" },
-    k = { "<cmd>Telescope keymaps<cr>", "Find Keymaps" },
-    h = { "<cmd>Telescope help_tags<cr>", "Find Help Tags" },
-    c = { "<cmd>Telescope colorsheme<cr>", "Find Colorscheme" },
-    d = { "<cmd>Telescope diagnostics<cr>", "Find Diagnostics" },
-    g = {
-      name = "Git",
-      f = { "<cmd>Telescope git_files<cr>", "Files" },
-      c = { "<cmd>Telescope git_commits<cr>", "Commits" },
-      b = { "<cmd>Telescope git_branches<cr>", "Branches" },
-    }
-  },
-  b = {
-    name = "Buffers",
-    l = { "<cmd>bprev<cr>", "Last Buffer" },
-    n = { "<cmd>bnext<cr>", "Last Buffer" },
-    b = { "<cmd>Telescope buffers<cr>", "Find Buffers" },
-  },
-  -- go to config
-  g = {
-    name = "GoTo",
-    d = { function()
-      require("telescope.builtin").lsp_definitions({ jump_type = "vsplit" })
-    end, "Definition" },
-    D = { vim.lsp.buf.declaration, "Delcaration" },
-    i = { vim.lsp.buf.implementation, "Implementation" },
-    t = { vim.lsp.buf.type_definition, "Type Definition" },
-  },
-  -- lsp config
-  l = {
-    name = "LSP",
-    w = {
-      name = "Workspace",
-      a = { vim.lsp.buf.add_workspace_folder, "Add Folder" },
-      r = { vim.lsp.buf.remove_workspace_folder, "Remove Folder" },
-      l = { vim.lsp.buf.list_workspace_folders, "List Folders" },
-    },
-    r = { vim.lsp.buf.rename, "Rename" },
-    a = { vim.lsp.buf.code_action, "Code Action" },
-    f = { vim.lsp.buf.format, "Format Buffer" },
-    n = { vim.lsp.buf.goto_next, "Next Problem" },
-    p = { vim.lsp.buf.goto_prev, "Previous Problem" },
-    h = { vim.lsp.buf.hover, "Function Help" },
-    s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-    R = { "<cmd>Telescope lsp_references<cr>", "References" },
-  },
-  -- git configs
-  G = {
-    name = "Git",
-    s = { vim.cmd.Git, "Status" },
-    p = { "<cmd>Git push<cr>", "Push" },
-    P = { "<cmd>Git pull<cr>", "Pull" },
-    c = { "<cmd>Git checkout<cr>", "Checkout" },
-  },
-  h = {
-    name = "Harpoon",
-    a = { function() harpoon:list():append() end, "Add file" },
-    m = { function() toggle_telescope(harpoon:list()) end, "Menu" },
-    -- m = { function() require("harpoon.ui"):toggle_quick_menu(require("harpoon"):list()) end, "Menu" },
-    J = { function() harpoon:list():next() end, "Next File" },
-    K = { function() harpoon:list():prev() end, "Previous File" },
-    h = { function() harpoon:list():select(1) end, "File 1" },
-    j = { function() harpoon:list():select(2) end, "File 2" },
-    k = { function() harpoon:list():select(3) end, "File 3" },
-    l = { function() harpoon:list():select(4) end, "File 4" },
-    e = { function() harpoon:list():clear() end, "Clear Marks" },
-  },
-  -- open configs
-  o = {
-    name = "Open",
-    u = { vim.cmd.UndotreeToggle, "UndoTree" },
-    -- Use triptych
-    D = { "<cmd>Triptych<cr>", "Triptych File Explorer" },
-    d = { "<cmd>Oil<cr>", "Oil File Explorer" },
-    t = { function() tman.toggleLast({ insert = true }) end, "Terminal" },
-    r = { tman.toggleRight, "Terminal Right" },
-  },
-  s = {
-    name = "Sidebar",
-    l = { "<cmd>NvimTreeToggle<cr>", "Left (nvim-tree)" },
-    r = { "<cmd>Outline<cr>", "Right (outline)" }
-  },
-  t = {
-    name = "Terminal",
-    t = { function() tman.toggleLast({ insert = true }) end, "Terminal" },
-    r = { tman.toggleRight, "Terminal Right" },
-    c = { ":TmanCmd<CR>", "Send Terminal Command" },
-    l = { ":TmanCmdLast<CR>", "Send Last Terminal Command" },
-  },
-  -- window configs
-  w = {
-    name = "Window",
-    W = { function() SetWindowWidthAsRatio(0.8) end, "Set window to 80% of total width" },
-    V = { function() SetWindowHeightAsRatio(0.8) end, "Set window to 80% of total height" },
-    z = { function() ZoomWindow() end, "Zoom current window." },
-  },
-  -- neorg for notes
-  n = {
-    name = "Notes",
-    n = { "<cmd>Telekasten new_note<cr>", "New Note" },
-    f = { "<cmd>Telekasten find_notes<cr>", "Find Note" },
-    t = { "<cmd>Telekasten show_tags<cr>", "Show Tags" },
-    s = { "<cmd>Telekasten search_notes<cr>", "Search Notes" },
-    d = { "<cmd>Telekasten find_daily_notes<cr>", "Find Daily Note" },
-    D = { "<cmd>Telekasten goto_today<cr>", "Goto Today's Note" },
-    c = { "<cmd>Telekasten show_calendar<cr>", "Calendar" },
-    l = { "<cmd>Telekasten insert_link<cr>", "Insert Link" },
-    L = { "<cmd>Telekasten show_backlinks<cr>", "Show Links to Note" },
-    T = { "<cmd>Telekasten toggle_todo<cr>", "Toggle Todo" },
-    w = { "<cmd>Telekasten find_weekly_notes<cr>", "Find Weekly Note" },
-    W = { "<cmd>Telekasten goto_thisweek<cr>", "Goto This Week's Note" },
-  },
+  -- Find section
+  { " f", name = "Find" },
+  { " ff", "<cmd>Telescope find_files<cr>", desc = "Find File" },
+  { " ft", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
+  { " fT", "<cmd>Telescope current_buffer_fuzze_find<cr>", desc = "Fuzzy Find in File" },
+  { " fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
+  { " fk", "<cmd>Telescope keymaps<cr>", desc = "Find Keymaps" },
+  { " fh", "<cmd>Telescope help_tags<cr>", desc = "Find Help Tags" },
+  { " fc", "<cmd>Telescope colorscheme<cr>", desc = "Find Colorscheme" },
+  { " fd", "<cmd>Telescope diagnostics<cr>", desc = "Find Diagnostics" },
+  -- Find Git section
+  { " fg", name = "Git" },
+  { " fgf", "<cmd>Telescope git_files<cr>", desc = "Files" },
+  { " fgc", "<cmd>Telescope git_commits<cr>", desc = "Commits" },
+  { " fgb", "<cmd>Telescope git_branches<cr>", desc = "Branches" },
+  
+  -- Buffers section
+  { " b", name = "Buffers" },
+  { " bl", "<cmd>bprev<cr>", desc = "Last Buffer" },
+  { " bn", "<cmd>bnext<cr>", desc = "Next Buffer" },
+  { " bb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
+  
+  -- GoTo section
+  { " g", name = "GoTo" },
+  { " gd", function() require("telescope.builtin").lsp_definitions({ jump_type = "vsplit" }) end, desc = "Definition" },
+  { " gD", vim.lsp.buf.declaration, desc = "Declaration" },
+  { " gi", vim.lsp.buf.implementation, desc = "Implementation" },
+  { " gt", vim.lsp.buf.type_definition, desc = "Type Definition" },
+  
+  -- LSP section
+  { " l", name = "LSP" },
+  -- LSP Workspace section
+  { " lw", name = "Workspace" },
+  { " lwa", vim.lsp.buf.add_workspace_folder, desc = "Add Folder" },
+  { " lwr", vim.lsp.buf.remove_workspace_folder, desc = "Remove Folder" },
+  { " lwl", vim.lsp.buf.list_workspace_folders, desc = "List Folders" },
+  -- Other LSP commands
+  { " lr", vim.lsp.buf.rename, desc = "Rename" },
+  { " la", vim.lsp.buf.code_action, desc = "Code Action" },
+  { " lf", vim.lsp.buf.format, desc = "Format Buffer" },
+  { " ln", function() vim.diagnostic.goto_next() end, desc = "Next Problem" },
+  { " lp", function() vim.diagnostic.goto_prev() end, desc = "Previous Problem" },
+  { " lh", vim.lsp.buf.hover, desc = "Function Help" },
+  { " ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols" },
+  { " lR", "<cmd>Telescope lsp_references<cr>", desc = "References" },
+  
+  -- Git section
+  { " G", name = "Git" },
+  { " Gs", vim.cmd.Git, desc = "Status" },
+  { " Gp", "<cmd>Git push<cr>", desc = "Push" },
+  { " GP", "<cmd>Git pull<cr>", desc = "Pull" },
+  { " Gc", "<cmd>Git checkout<cr>", desc = "Checkout" },
+  
+  -- Harpoon
+  { " h", name = "Harpoon" },
+  { " ha", function() harpoon:list():append() end, desc = "Add File" },
+  { " hm", function() toggle_telescope(harpoon:list()) end, desc = "Menu" },
+  { " hJ", function() harpoon:list():next() end, desc = "Next File" },
+  { " hK", function() harpoon:list():prev() end, desc = "Previous File" },
+  { " hh", function() harpoon:list():select(1) end, desc = "File 1" },
+  { " hj", function() harpoon:list():select(2) end, desc = "File 2" },
+  { " hk", function() harpoon:list():select(3) end, desc = "File 3" },
+  { " hl", function() harpoon:list():select(4) end, desc = "File 4" },
+  { " he", function() harpoon:list():clear() end, desc = "Clear Marks" },
+  
+  -- Open configs
+  { " o", name = "Open" },
+  { " ou", vim.cmd.UndotreeToggle, desc = "UndoTree" },
+  { " od", "<cmd>Oil<cr>", desc = "File Explorer" },
+  { " ot", function() tman.toggleLast({ insert = true }) end, desc = "Terminal" },
+  { " or", tman.toggleRight, desc = "Terminal Right" },
+  
+  -- Sidebar
+  { " s", name = "Sidebar" },
+  { " sl", "<cmd>NvimTreeToggle<cr>", desc = "Left (nvim-tree)" },
+  { " sr", "<cmd>Outline<cr>", desc = "Right (outline)" },
+  
+  -- Terminal
+  { " t", name = "Terminal" },
+  { " tt", function() tman.toggleLast({ insert = true }) end, desc = "Terminal" },
+  { " tr", tman.toggleRight, desc = "Terminal Right" },
+  { " tc", ":TmanCmd<CR>", desc = "Send Terminal Command" },
+  { " tl", ":TmanCmdLast<CR>", desc = "Send Last Terminal Command" },
+  
+  -- Window configs
+  { " w", name = "Window" },
+  { " wW", function() SetWindowWidthAsRatio(0.8) end, desc = "Set window to 80% of total width" },
+  { " wV", function() SetWindowHeightAsRatio(0.8) end, desc = "Set window to 80% of total height" },
+  { " wz", function() ZoomWindow() end, desc = "Zoom Window" },
+  
+  -- Notes (commented out)
+  -- { " n", name = "Notes" },
+  -- { " nn", "<cmd>Telekasten new_note<cr>", desc = "New Note" },
+  -- { " nf", "<cmd>Telekasten find_notes<cr>", desc = "Find Note" },
+  -- { " nt", "<cmd>Telekasten show_tags<cr>", desc = "Show Tags" },
+  -- { " ns", "<cmd>Telekasten search_notes<cr>", desc = "Search Notes" },
+  -- { " nd", "<cmd>Telekasten find_daily_notes<cr>", desc = "Find Daily Note" },
+  -- { " nD", "<cmd>Telekasten goto_today<cr>", desc = "Goto Today's Note" },
+  -- { " nc", "<cmd>Telekasten show_calendar<cr>", desc = "Calendar" },
+  -- { " nl", "<cmd>Telekasten insert_link<cr>", desc = "Insert Link" },
+  -- { " nL", "<cmd>Telekasten show_backlinks<cr>", desc = "Show Links to Note" },
+  -- { " nT", "<cmd>Telekasten toggle_todo<cr>", desc = "Toggle Todo" },
+  -- { " nw", "<cmd>Telekasten find_weekly_notes<cr>", desc = "Find Weekly Note" },
+  -- { " nW", "<cmd>Telekasten goto_thisweek<cr>", desc = "Goto This Week's Note" },
 }
 
 local wk = require("which-key")
-wk.register(mappings, opts)
+-- wk.register(mappings, opts)
+wk.add(mappings)

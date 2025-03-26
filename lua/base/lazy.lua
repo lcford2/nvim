@@ -49,6 +49,12 @@ lazy.setup({
     {
       'navarasu/onedark.nvim',
     },
+    -- transparent theme
+    {
+      'xiyaowong/transparent.nvim',
+      lazy = false,
+      priority = 1000,
+    },
     -- Icons
     { 'kyazdani42/nvim-web-devicons',           lazy = true },
     -- Dashboard (start screen)
@@ -126,7 +132,7 @@ lazy.setup({
     },
     -- Statusline
     {
-      'freddiehaddad/feline.nvim',
+      'lcford2/feline.nvim',
       dependencies = {
         'kyazdani42/nvim-web-devicons',
         'lewis6991/gitsigns.nvim',
@@ -149,7 +155,7 @@ lazy.setup({
         vim.o.timeoutlen = 300
       end,
       opts = {
-        window = {
+        win = {
           border = "single",
         },
         layout = {

@@ -1,5 +1,7 @@
-vim.opt.background = "dark"
-vim.cmd.colorscheme("everforest")
+-- vim.opt.background = "dark"
+-- vim.cmd.colorscheme("everforest")
+vim.opt.termguicolors = true
+vim.cmd.colorscheme("default")
 
 local M = {}
 
