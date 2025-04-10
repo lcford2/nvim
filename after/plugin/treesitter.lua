@@ -25,6 +25,7 @@ nvim_treesitter.setup {
     -- `false` will disable the whole extension
     enable = true,
     additional_vim_regex_highlighting = false,
+    use_languagetree = true,
   },
   incremental_selection = {
     enable = true,
@@ -35,6 +36,24 @@ nvim_treesitter.setup {
       node_decremental = "<M-space>",
     },
   },
+  indent = {
+    enable = true,
+  },
+  autotag = {
+    enable = true,
+  },
+  context_commentstring = {
+    enable = true,
+    enable_autocmd = false,
+  },
+  refactor = {
+    highlight_definitions = {
+      enable = true
+    },
+    highlight_current_scope = {
+      enable = false
+    }
+  }
   -- TODO: comeback and keep configuring treesitter
 }
 

@@ -5,6 +5,9 @@ if not status_ok then
 end
 
 telescope.setup({
+  defaults = {
+    prompt_prefix = "   ",
+  },
   extensions = {
     tele_tabby = {
       use_highlighter = true,

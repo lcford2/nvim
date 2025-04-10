@@ -50,10 +50,18 @@ lazy.setup({
       'navarasu/onedark.nvim',
     },
     -- transparent theme
+    -- {
+    --   'xiyaowong/transparent.nvim',
+    --   lazy = false,
+    --   priority = 1000,
+    -- },
+    -- Rose-pine - Soho vibes for Neovim
     {
-      'xiyaowong/transparent.nvim',
-      lazy = false,
-      priority = 1000,
+      "rose-pine/neovim",
+      name = "rose-pine",
+      opts = {
+        dark_variant = "moon",
+      }
     },
     -- Icons
     { 'kyazdani42/nvim-web-devicons',           lazy = true },
@@ -214,11 +222,11 @@ lazy.setup({
         "nvim-lua/plenary.nvim",
         "MunifTanjim/nui.nvim",
         --- The below dependencies are optional,
-        "echasnovski/mini.pick", -- for file_selector provider mini.pick
+        "echasnovski/mini.pick",         -- for file_selector provider mini.pick
         "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-        "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-        "ibhagwan/fzf-lua", -- for file_selector provider fzf
-        "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+        "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
+        "ibhagwan/fzf-lua",              -- for file_selector provider fzf
+        "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
         -- "zbirenbaum/copilot.lua", -- for providers='copilot'
         {
           -- support for image pasting
@@ -262,10 +270,10 @@ lazy.setup({
     {
       "antonk52/bad-practices.nvim",
     },
-    -- {
-    --   "m4xshen/hardtime.nvim",
-    --   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-    --   opts = {}
-    -- },
+    {
+      "m4xshen/hardtime.nvim",
+      dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+      opts = {}
+    },
   },
 })

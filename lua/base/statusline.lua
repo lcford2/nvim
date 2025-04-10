@@ -17,7 +17,8 @@ if not status_ok then
 end
 
 -- Set colorscheme (from core/colors.lua/colorscheme_name)
-local colors = require("base.colors").everforest
+-- local colors = require("base.colors").everforest
+local colors = require("rose-pine.palette")
 
 local vi_mode_colors = {
   NORMAL = colors.cyan,
