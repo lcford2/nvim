@@ -39,3 +39,37 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping.complete(),
   }),
 })
+
+-- Clangd config for ros stuff
+local lspconfig = require("lspconfig")
+local util      = require("lspconfig.util")
+
+lspconfig.clangd.setup {
+  -- define how to find project “root”
+  root_dir = function(fname)
+    -- walk up until you find a directory containing "build"
+    local root_with_build = util.search_ancestors(fname, function(path)
+      if vim.fn.isdirectory(path .. "/build") == 1 then
+        return path
+      end
+    end)
+    if root_with_build then
+      return root_with_build
+    end
+    -- fallback: look for .git, or else just use cwd
+    return util.root_pattern(".git")(fname)
+        or vim.loop.cwd()
+  end,
+
+  -- 2) once the root is determined, tell clangd about your compile_commands.json
+  on_new_config = function(new_config, new_root_dir)
+    local build_dir = new_root_dir .. "/build"
+    if vim.fn.isdirectory(build_dir) == 1 then
+      -- insert the clangd flag to point at your compile_commands.json
+      table.insert(new_config.cmd, "--compile-commands-dir=" .. build_dir)
+    end
+  end,
+
+  -- 3) any other clangd-specific flags you like
+  cmd = { "clangd", "--background-index", "--pch-storage=memory" },
+}

@@ -1,6 +1,5 @@
-local status_ok, hardtime = pcall(require, "hardtime")
-if not status_ok then
-  return
-end
-
-hardtime.enable()
+-- local status_ok, hardtime = pcall(require, "hardtime")
+-- if not status_ok then
+--   return
+-- end
+--
