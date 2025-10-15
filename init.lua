@@ -20,4 +20,9 @@ for _, cmd in ipairs({ "git", "rg", { "fd", "fdfind" } }) do
     end
 end
 
+local venv_path = vim.fn.stdpath("data") .. "/venv"
+if vim.fn.isdirectory(venv_path) == 1 then
+	vim.g.python3_host_prog = venv_path .. "/bin/python"
+end
+
 require("base")
