@@ -76,6 +76,8 @@ local mappings = {
   { " lh",  vim.lsp.buf.hover,                                                                     desc = "Function Help" },
   { " ls",  "<cmd>Telescope lsp_document_symbols<cr>",                                             desc = "Document Symbols" },
   { " lR",  "<cmd>Telescope lsp_references<cr>",                                                   desc = "References" },
+  { " lD",  "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>",                             desc = "Show line diagnostics" },
+
 
   -- Git section
   { " G",   name = "Git" },

@@ -260,36 +260,7 @@ lazy.setup({
     -- math in buffer
     {
       "lcford2/calc.nvim",
-      build = function()
-        local venv_path = vim.fn.stdpath("data") .. "/venv"
-
-        if vim.fn.isdirectory(venv_path) == 0 then
-          print("Creating Python virtual environment...")
-          vim.fn.system("python3 -m venv " .. venv_path)
-        end
-
-        print("Installing pip packages...")
-        local pip = venv_path .. "/bin/pip"
-        local result = vim.fn.system(pip .. " install asteval pynvim")
-        print(result)
-
-        print("Running UpdateRemotePlugins")
-        vim.g.python3_host_prog = venv_path .. "/bin/python"
-        local success, err = pcall(function()
-          vim.cmd("UpdateRemotePlugins")
-        end)
-
-        if success then
-          print("UpdateRemotePlugins completed successfully")
-        else
-          print("UpdateRemotePlugins failed: " .. tostring(err))
-        end
-
-        vim.notify(
-          "calc.nvim: Please restart Neovim to complete installation",
-          vim.log.levels.WARN
-        )
-      end,
+      build = ":lua require('build')",
     },
 
     -- math in buffer (pretty)
