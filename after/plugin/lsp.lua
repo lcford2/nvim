@@ -13,15 +13,106 @@ require('mason-lspconfig').setup({
     'lua_ls',
     'ruff',
   },
-  handlers = {
-    lsp_zero.default_setup,
-    lua_ls = function()
-      local lua_opts = lsp_zero.nvim_lua_ls()
-      require('lspconfig').lua_ls.setup(lua_opts)
-    end,
-  }
 })
 
+-- Configure LSP servers using new vim.lsp.config API
+local servers = {
+  rust_analyzer = {
+    cmd = { 'rust-analyzer' },
+    root_markers = { 'Cargo.toml', '.git' },
+  },
+  bashls = {
+    cmd = { 'bash-language-server', 'start' },
+    root_markers = { '.git' },
+  },
+  cmake = {
+    cmd = { 'cmake-language-server' },
+    root_markers = { 'CMakeLists.txt', '.git' },
+  },
+  dockerls = {
+    cmd = { 'docker-langserver', '--stdio' },
+    root_markers = { 'Dockerfile', '.git' },
+  },
+  docker_compose_language_service = {
+    cmd = { 'docker-compose-langserver', '--stdio' },
+    root_markers = { 'docker-compose.yml', 'docker-compose.yaml', '.git' },
+  },
+  pyright = {
+    cmd = { 'pyright-langserver', '--stdio' },
+    root_markers = { 'pyproject.toml', 'setup.py', '.git' },
+  },
+  ruff = {
+    cmd = { 'ruff', 'server' },
+    root_markers = { 'pyproject.toml', 'setup.py', '.git' },
+  },
+  lua_ls = {
+    cmd = { 'lua-language-server' },
+    root_markers = { '.luarc.json', '.git' },
+    settings = {
+      Lua = {
+        runtime = { version = 'LuaJIT' },
+        diagnostics = { globals = { 'vim' } },
+        workspace = {
+          library = vim.api.nvim_get_runtime_file("", true),
+          checkThirdParty = false,
+        },
+        telemetry = { enable = false },
+      },
+    },
+  },
+}
+
+-- Set up all servers except clangd (which needs custom config)
+for server, config in pairs(servers) do
+  vim.lsp.config(server, config)
+end
+
+-- Custom clangd configuration for ROS
+vim.lsp.config('clangd', {
+  cmd = { 'clangd', '--background-index', '--pch-storage=memory' },
+  root_markers = { 'build', '.git' },
+
+  -- Custom root_dir logic
+  root_dir = function(fname)
+    local util = require("lspconfig.util")
+
+    -- Walk up until you find a directory containing "build"
+    local root_with_build = util.search_ancestors(fname, function(path)
+      if vim.fn.isdirectory(path .. "/build") == 1 then
+        return path
+      end
+    end)
+    if root_with_build then
+      return root_with_build
+    end
+
+    -- Fallback: look for .git, or else just use cwd
+    return util.root_pattern(".git")(fname) or vim.loop.cwd()
+  end,
+
+  -- Tell clangd about compile_commands.json
+  on_new_config = function(new_config, new_root_dir)
+    local build_dir = new_root_dir .. "/build"
+    if vim.fn.isdirectory(build_dir) == 1 then
+      table.insert(new_config.cmd, "--compile-commands-dir=" .. build_dir)
+    end
+  end,
+})
+
+-- Enable all LSP servers
+vim.lsp.enable({
+  'rust_analyzer',
+  'bashls',
+  'clangd',
+  'cmake',
+  'dockerls',
+  'docker_compose_language_service',
+  'pyright',
+  'lua_ls',
+  'ruff',
+})
+
+-- CMP setup (unchanged)
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
@@ -39,37 +130,3 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping.complete(),
   }),
 })
-
--- Clangd config for ros stuff
-local lspconfig = require("lspconfig")
-local util      = require("lspconfig.util")
-
-lspconfig.clangd.setup {
-  -- define how to find project “root”
-  root_dir = function(fname)
-    -- walk up until you find a directory containing "build"
-    local root_with_build = util.search_ancestors(fname, function(path)
-      if vim.fn.isdirectory(path .. "/build") == 1 then
-        return path
-      end
-    end)
-    if root_with_build then
-      return root_with_build
-    end
-    -- fallback: look for .git, or else just use cwd
-    return util.root_pattern(".git")(fname)
-        or vim.loop.cwd()
-  end,
-
-  -- 2) once the root is determined, tell clangd about your compile_commands.json
-  on_new_config = function(new_config, new_root_dir)
-    local build_dir = new_root_dir .. "/build"
-    if vim.fn.isdirectory(build_dir) == 1 then
-      -- insert the clangd flag to point at your compile_commands.json
-      table.insert(new_config.cmd, "--compile-commands-dir=" .. build_dir)
-    end
-  end,
-
-  -- 3) any other clangd-specific flags you like
-  cmd = { "clangd", "--background-index", "--pch-storage=memory" },
-}
