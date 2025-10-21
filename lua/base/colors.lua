@@ -1,9 +1,6 @@
 -- vim.opt.background = "dark"
--- vim.cmd.colorscheme("everforest")
 vim.opt.termguicolors = true
--- vim.cmd.colorscheme("default")
--- By default, use rose-pine
-vim.cmd.colorscheme("rose-pine")
+vim.cmd.colorscheme("kanagawa")
 
 local M = {}
 

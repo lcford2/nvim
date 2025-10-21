@@ -63,6 +63,22 @@ lazy.setup({
         dark_variant = "moon",
       }
     },
+    {
+      "catppuccin/nvim",
+      name = "catppuccin",
+      priorty = 1000,
+    },
+    {
+      "folke/tokyonight.nvim",
+      lazy = false,
+      priority = 1000,
+      opts = {},
+    },
+    {
+      "rebelot/kanagawa.nvim",
+      priority = 1000,
+      lazy = false,
+    },
     -- Icons
     { 'kyazdani42/nvim-web-devicons',           lazy = true },
     -- Dashboard (start screen)
