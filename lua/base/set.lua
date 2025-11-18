@@ -82,7 +82,24 @@ autocmd('Filetype', {
 
 autocmd('Filetype', {
   pattern = { "cpp", "hpp", "c", "h" },
-  command = "lua vim.api.nvim_buf_set_option(0, 'commentstring', '// %s')"
+  callback = function()
+    vim.bo.commentstring = '// %s'
+  end
+})
+
+autocmd('Filetype', {
+  pattern = { "pddl" },
+  callback = function()
+    vim.bo.commentstring = ';; %s'
+  end
+})
+
+autocmd('BufEnter', {
+  pattern = { "sas_plan.*" },
+  callback = function()
+    vim.opt_local.relativenumber = false
+    vim.opt_local.number = true
+  end
 })
 
 autocmd("Filetype", {
