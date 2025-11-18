@@ -72,34 +72,6 @@ vim.lsp.config('clangd', {
   cmd = { 'clangd', '--background-index', '--pch-storage=memory' },
   root_markers = { 'build', '.git' },
 
-  -- Custom root_dir logic
-  root_dir = function(fname)
-    local util = require("lspconfig.util")
-
-    -- Convert buffer number to file path if needed
-    local filepath = fname
-    if type(fname) == "number" then
-      filepath = vim.api.nvim_buf_get_name(fname)
-    end
-
-    -- Handle empty path
-    if filepath == "" then
-      return vim.loop.cwd()
-    end
-
-    -- Walk up until you find a directory containing "build"
-    local root_with_build = util.search_ancestors(filepath, function(path)
-      if vim.fn.isdirectory(path .. "/build") == 1 then
-        return path
-      end
-    end)
-    if root_with_build then
-      return root_with_build
-    end
-
-    -- Fallback: look for .git, or else just use cwd
-    return util.root_pattern(".git")(filepath) or vim.loop.cwd()
-  end,
   -- Tell clangd about compile_commands.json
   on_new_config = function(new_config, new_root_dir)
     local build_dir = new_root_dir .. "/build"

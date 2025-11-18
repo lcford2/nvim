@@ -59,6 +59,7 @@ local mappings = {
   { " gD",  vim.lsp.buf.declaration,                                                               desc = "Declaration" },
   { " gi",  vim.lsp.buf.implementation,                                                            desc = "Implementation" },
   { " gt",  vim.lsp.buf.type_definition,                                                           desc = "Type Definition" },
+  { " gh",  "<cmd>LspClangdSwitchSourceHeader<cr>",                                                desc = "Go to Header" },
 
   -- LSP section
   { " l",   name = "LSP" },
