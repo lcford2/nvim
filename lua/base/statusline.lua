@@ -41,6 +41,8 @@ local vi_mode_colors = {
 local lsp = require 'feline.providers.lsp'
 local vi_mode_utils = require 'feline.providers.vi_mode'
 
+local opencode_ok, opencode = pcall(require, 'opencode')
+
 -- LSP diagnostic
 local lsp_get_diag = function(str)
   local count = vim.lsp.diagnostic.get_count(0, str)
@@ -197,6 +199,24 @@ local comps = {
       right_sep = ' ',
     }
   },
+  opencode = {
+    status = {
+      provider = function()
+        if not opencode_ok then
+          return ''
+        end
+
+        local status = opencode.statusline()
+        if not status or status == '' then
+          return ''
+        end
+
+        return '  ' .. status
+      end,
+      hl = { fg = colors.pink },
+      right_sep = ' ',
+    },
+  },
   -- git info
   git = {
     branch = {
@@ -253,6 +273,7 @@ table.insert(components.active[2], comps.diagnos.warn)
 table.insert(components.active[2], comps.diagnos.hint)
 table.insert(components.active[2], comps.diagnos.info)
 table.insert(components.active[2], comps.lsp.name)
+table.insert(components.active[2], comps.opencode.status)
 table.insert(components.active[2], comps.file.type)
 table.insert(components.active[2], comps.file.os)
 table.insert(components.active[2], comps.file.encoding)

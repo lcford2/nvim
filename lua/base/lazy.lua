@@ -187,6 +187,26 @@ lazy.setup({
         },
       }
     },
+    {
+      'folke/snacks.nvim',
+      opts = {
+        input = {},
+        picker = {
+          actions = {
+            opencode_send = function(...)
+              return require("opencode").snacks_picker_send(...)
+            end,
+          },
+          win = {
+            input = {
+              keys = {
+                ["<a-a>"] = { "opencode_send", mode = { "n", "i" } },
+              },
+            },
+          },
+        },
+      },
+    },
 
     -- Git Tools
     { 'tpope/vim-fugitive' },
@@ -270,6 +290,13 @@ lazy.setup({
           },
           ft = { "markdown", "Avante" },
         },
+      },
+    },
+    {
+      "nickjvandyke/opencode.nvim",
+      version = "*",
+      dependencies = {
+        "folke/snacks.nvim",
       },
     },
 

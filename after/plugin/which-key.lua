@@ -47,6 +47,16 @@ local mappings = {
   { " fgc", "<cmd>Telescope git_commits<cr>",                                                      desc = "Commits" },
   { " fgb", "<cmd>Telescope git_branches<cr>",                                                     desc = "Branches" },
 
+  -- AI section
+  { " a",   name = "AI" },
+  { " aa",  function() require("opencode").ask("@this: ", { submit = true }) end,                 desc = "Ask" },
+  { " as",  function() require("opencode").select() end,                                            desc = "Select Action" },
+  { " at",  function() require("opencode").toggle() end,                                            desc = "Toggle" },
+  { " ar",  function() return require("opencode").operator("@this ") end,                          desc = "Send Range", expr = true },
+  { " al",  function() return require("opencode").operator("@this ") .. "_" end,                  desc = "Send Line", expr = true },
+  { " au",  function() require("opencode").command("session.half.page.up") end,                     desc = "Scroll Up" },
+  { " ad",  function() require("opencode").command("session.half.page.down") end,                   desc = "Scroll Down" },
+
   -- Buffers section
   { " b",   name = "Buffers" },
   { " bl",  "<cmd>bprev<cr>",                                                                      desc = "Last Buffer" },
