@@ -99,6 +99,19 @@ local mappings = {
   { " Gd",  "<cmd>DiffviewOpen<cr>",                                                               desc = "Diff View" },
   { " Gh",  function() require("gitsigns").stage_hunk() end,                                       desc = "Stage hunk under cursor." },
   { " GH",  function() require("gitsigns").reset_hunk() end,                                       desc = "Restore hunk under cursor." },
+
+  -- Claude Code
+  { " a",   name = "AI/Claude Code" },
+  { " ac",  "<cmd>ClaudeCode<cr>",                                                                desc = "Toggle Claude" },
+  { " af",  "<cmd>ClaudeCodeFocus<cr>",                                                           desc = "Focus Claude" },
+  { " ar",  "<cmd>ClaudeCode --resume<cr>",                                                       desc = "Resume Claude" },
+  { " aC",  "<cmd>ClaudeCode --continue<cr>",                                                     desc = "Continue Claude" },
+  { " am",  "<cmd>ClaudeCodeSelectModel<cr>",                                                     desc = "Select Claude model" },
+  { " ab",  "<cmd>ClaudeCodeAdd %<cr>",                                                           desc = "Add current buffer" },
+  { " aa",  "<cmd>ClaudeCodeDiffAccept<cr>",                                                      desc = "Accept diff" },
+  { " ad",  "<cmd>ClaudeCodeDiffDeny<cr>",                                                        desc = "Deny diff" },
+  { " as",  "<cmd>ClaudeCodeSend<cr>",                                                            desc = "Send selection", mode = "v" },
+
   -- Harpoon
   { " h",   name = "Harpoon" },
   { " ha",  function() harpoon:list():append() end,                                                desc = "Add File" },

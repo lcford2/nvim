@@ -25,7 +25,7 @@ vim.opt.undoreload = 10000
 -- search
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
-vim.opt.wildmenu = true   -- make tab completion for files/buffers act like bash
+vim.opt.wildmenu = true -- make tab completion for files/buffers act like bash
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
@@ -47,21 +47,21 @@ local autocmd = vim.api.nvim_create_autocmd -- Create autocommand
 
 -- Remove whitespace on save
 autocmd("BufWritePre", {
-    pattern = "",
-    command = ":%s/\\s\\+$//e"
+  pattern = "",
+  command = ":%s/\\s\\+$//e"
 })
 
 -- Auto format on save using the attached (optionally filtered) language servere clients
 -- https://neovim.io/doc/user/lsp.html#vim.lsp.buf.format()
 autocmd("BufWritePre", {
-    pattern = "",
-    command = ":silent lua vim.lsp.buf.format()"
+  pattern = "",
+  command = ":silent lua vim.lsp.buf.format()"
 })
 
 -- Don"t auto commenting new lines
 autocmd("BufEnter", {
-    pattern = "",
-    command = "set fo-=c fo-=r fo-=o"
+  pattern = "",
+  command = "set fo-=c fo-=r fo-=o"
 })
 
 -- Set indentation to 2 spaces
@@ -103,16 +103,16 @@ autocmd('BufEnter', {
 })
 
 autocmd("Filetype", {
-    pattern = { "gitcommit", "markdown", "text" },
-    callback = function()
-        vim.opt_local.wrap = true
-        vim.opt_local.spell = true
-    end
+  pattern = { "gitcommit", "markdown", "text" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+  end
 })
 
 autocmd('BufEnter', {
   desc = "Set markdown options for telekasten",
-  callback = function (opts)
+  callback = function(opts)
     if vim.bo[opts.buf].filetype == "telekasten" then
       vim.cmd ':setlocal shiftwidth=4 tabstop=4 softtabstop=4'
     end
@@ -141,7 +141,18 @@ autocmd('BufLeave', {
   command = 'stopinsert'
 })
 autocmd("TermClose", {
-    callback = function()
-       vim.cmd("close")
-    end
+  callback = function()
+    vim.cmd("close")
+  end
+})
+
+-- harden for gopass
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "/dev/shm/gopass*",
+  callback = function()
+    vim.opt_local.swapfile = false
+    vim.opt_local.backup = false
+    vim.opt_local.undofile = false
+    vim.opt.shada = ""
+  end,
 })
